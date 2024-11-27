@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">HonorAlarm</string>
+    <string name="alarm">Alarm</string>
+    <string name="clock">Clock</string>
+    <string name="timer">Timer</string>
+    <string name="stop_watch">StopWatch</string>
+    <string name="bed_time">BedTime</string>
+</resources>
