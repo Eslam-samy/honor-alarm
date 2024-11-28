@@ -20,13 +20,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             HonorAlarmTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeTabsScreen(
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .fillMaxSize()
-                    )
-                }
+                HomeTabsScreen(
+                    modifier = Modifier
+//                            .padding(innerPadding)
+                        .fillMaxSize()
+                )
             }
         }
     }
