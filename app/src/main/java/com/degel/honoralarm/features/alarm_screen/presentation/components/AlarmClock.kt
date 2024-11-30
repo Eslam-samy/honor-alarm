@@ -15,24 +15,32 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 @Preview(showBackground = true)
 @Composable
 fun AlarmClock(
     modifier: Modifier = Modifier,
-    title: String = "15:20",
-    day: Boolean = true,
-    enabled: Boolean = false
+    time: String? = "15:20",
+    enabled: Boolean = false,
 ) {
     val textColor = if (enabled) Color.Unspecified else MaterialTheme.colorScheme.surfaceVariant
     val fontWeight = if (enabled) FontWeight.Medium else FontWeight.Normal
+
+    // Parse the input time
+    val localTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"))
+    val formattedTime =
+        localTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+    val amPm = localTime.format(DateTimeFormatter.ofPattern("a"))
+
     Row(
         modifier = modifier
             .fillMaxWidth(),
         verticalAlignment = Alignment.Bottom
     ) {
         Text(
-            title,
+            formattedTime,
             style = MaterialTheme.typography.displayMedium.copy(
                 fontWeight = fontWeight,
                 color = textColor
@@ -43,7 +51,7 @@ fun AlarmClock(
                 .width(16.dp)
         )
         Text(
-            if (day) "AM" else "PM",
+            amPm,
             style = MaterialTheme.typography.bodyMedium.copy(
                 fontWeight = fontWeight,
                 color = textColor

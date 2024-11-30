@@ -24,12 +24,12 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun RowScope.TitleComponent(
     modifier: Modifier = Modifier,
+    title: String? = null,
     expanded: Boolean,
     enabled: Boolean,
-    onClicked: () -> Unit
+    onClicked: () -> Unit,
 ) {
     val textColor = if (enabled) Color.Unspecified else MaterialTheme.colorScheme.surfaceVariant
-
     Box(
         modifier = modifier
             .weight(1f)
@@ -52,12 +52,13 @@ fun RowScope.TitleComponent(
                     modifier = Modifier
                         .width(8.dp)
                 )
-                Text(
-                    "Ty6",
-                    style = MaterialTheme.typography.labelMedium.copy(
-                        color = textColor
+                if (!title.isNullOrEmpty())
+                    Text(
+                        title,
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            color = textColor
+                        )
                     )
-                )
 
             }
         }

@@ -43,13 +43,15 @@ import kotlin.math.exp
 @Composable
 fun AlarmItemComponent(
     modifier: Modifier = Modifier,
-    alarm:Alarm
+    alarm: Alarm,
+    onTitleChanged: (String?) -> Unit = {},
+    onScheduledChanged: (Boolean) -> Unit = {},
 ) {
 
-    val enabled = true
-    val title: String = "15:20"
-    val day: Boolean = true
     var expanded by remember {
+        mutableStateOf(false)
+    }
+    var showTitleDialog by remember {
         mutableStateOf(false)
     }
 
@@ -66,7 +68,8 @@ fun AlarmItemComponent(
 
 
     ) {
-        Column() {
+        Column {
+            // for alarm title
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -74,10 +77,11 @@ fun AlarmItemComponent(
             ) {
                 TitleComponent(
                     expanded = expanded,
-                    enabled = enabled
+                    enabled = alarm.scheduled == true,
+                    title = alarm.label
                 ) {
                     if (expanded) {
-                        //todo show the dialog here
+                        showTitleDialog = true
                     } else {
                         expanded = false
                     }
@@ -97,10 +101,43 @@ fun AlarmItemComponent(
                         .height(16.dp)
                 )
             }
+            // for the clock
             AlarmClock(
-                title = title,
-                day = day,
-                enabled = enabled
+                time = alarm.time,
+                enabled = alarm.scheduled == true,
+            )
+            Spacer(
+                modifier = Modifier
+                    .height(16.dp)
+            )
+            AlarmScheduleComponent(
+                scheduled = alarm.scheduled == true,
+                onScheduledChanged = onScheduledChanged
+            )
+            if (expanded) {
+                Spacer(
+                    modifier = Modifier
+                        .height(16.dp)
+                )
+                AlarmDaysComponent(
+                    days = alarm.days
+                )
+
+            }
+
+
+        }
+
+        if (showTitleDialog) {
+            AlarmTitleDialog(
+                onDismissRequest = {
+                    showTitleDialog = false
+                },
+                initialTitle = alarm.label,
+                onTitleConfirm = {
+                    showTitleDialog = false
+                    onTitleChanged(it)
+                }
             )
         }
     }

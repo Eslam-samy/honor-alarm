@@ -7,7 +7,7 @@ import com.degel.honoralarm.features.alarm_screen.domain.model.Day
 
 fun AlarmEntity.toDomainModel(): Alarm = Alarm(
     id = id,
-    days = days.map { it.toDomain() },
+    days = days?.map { it.toDomain() },
     time = time,
     scheduled = scheduled,
     label = label,
@@ -18,21 +18,20 @@ fun AlarmEntity.toDomainModel(): Alarm = Alarm(
 fun DayEntity.toDomain(): Day = Day(
     id = id,
     name = name,
-    selected = selected
 )
 
 fun Alarm.toDataModel(): AlarmEntity = AlarmEntity(
     id = id,
-    days = days.map { it.toDataModel() },
+    days = days?.map { it.toDataModel() },
     time = time,
     scheduled = scheduled,
     label = label,
-    vibrate = vibrate
+    vibrate = vibrate,
+    oneTimeAlarm = oneTimeAlarm
 
 )
 
 fun Day.toDataModel(): DayEntity = DayEntity(
     id = id,
     name = name,
-    selected = selected
 )

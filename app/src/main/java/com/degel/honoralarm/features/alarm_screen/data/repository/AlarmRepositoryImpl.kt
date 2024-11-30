@@ -18,6 +18,7 @@ class AlarmRepositoryImpl(
     }
 
     override suspend fun insertAlarm(alarm: Alarm) {
+
         alarmDao.insertAlarm(alarm.toDataModel())
     }
 

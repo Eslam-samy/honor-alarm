@@ -5,10 +5,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Alarm")
 data class AlarmEntity(
-    @PrimaryKey(autoGenerate = true)val id: Int,
-    val time: String,
-    val label: String,
-    val days: List<DayEntity>,
-    val vibrate: Boolean,
-    val scheduled: Boolean,
+    @PrimaryKey(autoGenerate = true) val id: Int?,
+    val time: String?,
+    val label: String?,
+    val days: List<DayEntity>?,
+    val vibrate: Boolean?,
+    val scheduled: Boolean?,
+    val oneTimeAlarm: Boolean?,
 )
